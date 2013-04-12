@@ -1,0 +1,41 @@
+<html>
+  <head> <script src="http://chatbuilder.herokuapp.com/ChatBuilder.js"></script> 
+   
+  </head>
+  <body>
+    <!-- Chat.display = jQuery('u1.messages').append(<li> totalInput </li>)
+  -->
+    <script>
+       $(document).ready(function() {
+        var username = prompt("What is your name?");
+          Chat.fetch(function(data) {
+                i = 0;
+        setInterval(function() {
+          Chat.display(data[i]);
+          i++;
+          if ((i - 1) > data.length) {
+            i = 0;
+          }
+        }, 3000);
+  });
+          $('button').click(function() {
+              var userinput = $('input').val();
+              var totalinput = username + ": " + userinput;
+              Chat.display(totalinput);
+              Chat.send(totalinput);
+       })
+});
+    </script>
+
+
+    <h2>Chatville</h2>
+
+    <input class="draft" type="text"/> <button class="send">send</button>
+
+    <ul class="messages">
+      <!-- once you save this code to a local `.html()` file, you can delete these 3 fake, hard-coded li elements -->
+      
+    </ul>
+
+  </body>
+</html>
