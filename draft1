@@ -1,0 +1,30 @@
+<html>
+  <head> <script src="http://chatbuilder.herokuapp.com/ChatBuilder.js"></script> 
+   
+  </head>
+  <body>
+    <!-- Chat.display = jQuery('u1.messages').append(<li> totalInput </li>)
+  -->
+    <script>
+       $(document).ready(function() {
+          Chat.fetch(function(data) {
+        for(i in data) {
+          Chat.display(data[i]);
+        }
+  });
+       
+});
+    </script>
+
+
+    <h2>Chatville</h2>
+
+    <input class="draft" type="text"/> <button class="send">send</button>
+
+    <ul class="messages">
+      <!-- once you save this code to a local `.html()` file, you can delete these 3 fake, hard-coded li elements -->
+      
+    </ul>
+
+  </body>
+</html>
