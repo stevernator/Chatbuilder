@@ -28,21 +28,26 @@
           }
   }         
   );
-              
+              var userinput = $('input').val();
+              var totalinput = username + ": " + userinput
+            
+              var stu =  {
+                text: totalinput;
+              }
+                var datatosend = JSON.stringify(stu);
+                var chattosend = {text: username + ": " + userinput};
+          
+              $('button').click(function() {
+              Chat.display(totalinput);
+              var userinput = $('input').val("");
+              $.ajax({
+                type: "POST",
+                 url: "https://api.parse.com/1/classes/messages",
+                data: datatosend,
+                success: success,
+                dataType: "JSON"
+});
         
       
 });
     </script>
-
-
-    <h2>Chatville</h2>
-
-    <input class="draft" type="text"/> <button class="send">send</button>
-
-    <ul class="messages">
-      <!-- once you save this code to a local `.html()` file, you can delete these 3 fake, hard-coded li elements -->
-      
-    </ul>
-
-  </body>
-</html>
