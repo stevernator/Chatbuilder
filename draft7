@@ -21,7 +21,7 @@
             setInterval(function() {
               Chat.display(data.results[i].text);
               i++;
-              if (i === data.results.length) {
+              if (i + 1 === data.results.length) {
                 i = 0;
               }
             }, 3000); 
