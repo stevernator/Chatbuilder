@@ -1,0 +1,53 @@
+<html>
+  <head> <script src="http://chatbuilder.herokuapp.com/ChatBuilder.js"></script> 
+   
+  </head>
+  <body>
+    <script>
+        delete Chat.display;
+        delete Chat.fetch;
+        delete Chat.send;
+       $(document).ready(function() {
+        var name = prompt("Name please");
+        function display(a) {
+          $('.messages').append('<li>' + a + '</li>');
+        }
+        $.ajax({
+          url: "https://api.parse.com/1/classes/chats",
+          dataType: "json",
+          success: function(data) {
+            var stuff = [];
+            for(i=0; i < 10; i++) {
+              stuff[i] = data.results[i].text 
+            }
+            var counter = 0;
+            setInterval(function() {
+              display(stuff[counter]);
+              counter++;
+              if (counter===10) {
+                counter = 0;}}, 
+              3000);
+            }
+        });
+        $('button').click(function() {
+              var userinput = $('input').val();
+              var totalinput = name + ": " + userinput;
+              display(totalinput);
+              
+       })
+        
+      });
+    </script>
+
+
+    <h2>Chatville</h2>
+
+    <input class="draft" type="text"/> <button class="send">send</button>
+
+    <ul class="messages">
+      <!-- once you save this code to a local `.html()` file, you can delete these 3 fake, hard-coded li elements -->
+      
+    </ul>
+
+  </body>
+</html>
