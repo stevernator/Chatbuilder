@@ -1,0 +1,64 @@
+<html>
+  <head> <script src="http://chatbuilder.herokuapp.com/ChatBuilder.js"></script> 
+  <style type="text/css">
+  body {
+    color: white;
+    background-color: blue;
+  }
+  h2 {
+    color: white;
+    background-color: green;
+  }
+  </style>
+  </head>
+  <body>
+    <script>
+        delete Chat.display;
+        delete Chat.fetch;
+        delete Chat.send;
+        
+       $(document).ready(function() {
+        var name = prompt("What is your name?");  
+        function display(a) {
+          $('.messages').append('<li>' + a + '</li>');
+        }
+        $.ajax({
+          url: "https://api.parse.com/1/classes/chats?order=-createdAt",
+          dataType: "json",
+          success: function(data) {
+            var stuff = [];
+            for(i=0; i < 10; i++) {
+              stuff[i] = data.results[i].text 
+            }
+            var counter = 0;
+            setInterval(function() {
+              display(stuff[counter]);
+              counter++;
+              if (counter===10) {
+                counter = 0;}}, 
+              3000);
+            }
+        });
+        
+        $('button').click(function() {
+              var userinput = $('input').val();
+              var totalinput = name + ": " + userinput;
+              display(totalinput);
+              $('input').val(null);
+              var serverpost = JSON.stringify({text: totalinput})
+              $.ajax({
+                type: "POST",
+                url: "https://api.parse.com/1/classes/messages",
+                data: serverpost
+                }).done(function( ) {
+                console.log("Message sent!");
+            });        
+       }) 
+      });
+    </script>
+    <h2>Chatville</h2>
+    <input class="draft" type="text"/> <button class="send">send</button>
+    <ul class="messages">
+    </ul>
+  </body>
+</html>
